@@ -133,11 +133,11 @@ Class-Path: json-20190722.jar
 
 将自己写好库文件和main所在文件以及json-20190722.jar解压抽取的文件一起打成jar包，并编写manifest8文件，指定main方法路径，然后执行jar包
 
-切换到工程目录跟路径
+## 步骤
 
-编译文件：`javac -cp lib\json-20190722.jar;src src\cn\dxg\Test8.java -d pakage8`
-
-编写manifest8文件放在根目录下
+- 切换到工程目录跟路径
+- 编译文件：`javac -cp lib\json-20190722.jar;src src\cn\dxg\Test8.java -d pakage8`
+- 编写manifest8文件放在根目录下
 
 ```
 Manifest-Version: 1.0 
@@ -145,8 +145,6 @@ Main-Class: cn.dxg.Test8
 
 ```
 
-抽取：解压json-20190722.jar ,复制org目录到pakage8
-
-打包：`jar -cvfm Test8.jar manifest8 -C pakage8 .`
-
-运行：`java -jar Test8.jar`
+- 抽取：解压json-20190722.jar ,复制org目录到pakage8
+- 打包：`jar -cvfm Test8.jar manifest8 -C pakage8 .`
+- 运行：`java -jar Test8.jar`
