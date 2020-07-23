@@ -13,22 +13,23 @@
 6. javac编译过过程中遇到import语句，就会根据 “classpath + 相对路径”去找 class文件，根据“sourcepath+相对路径“去找源文件。规则是这样的：如果只有class文件，就直接用class文件。如果只有源文件，就把源文件编译成class文件。如果既有class文件又有源文件，就会检查文件修改的时间戳，如果class文件晚于源文件，就直接用class文件，如果早于源文件，就重新编译源文件。另外关于找到的标准要满足两条：文件名必须跟类名一样。文件里面package定义的相对路径必须和import定义的相对路径一样。
 
 7. 简单说一下class文件，前面提到的相对路径信息在源码中是package关键字指明的,class文件中也有这些信息，只不过不是在文件头部指明，而是直接内化成类全称了，看个例子：源码：
- 
+
    ```
-package A;
- public class Hello{
- public static void main(String args[]){
- 	System.out.println("Hello World!");
- 	}
- }
- class文件 反编译效果：public class A.Hello {
- 	public A.Hello();
- 	public static void main(java.lang.String[]);
- }
- ```
+   package A;
+    public class Hello{
+    public static void main(String args[]){
+    	System.out.println("Hello World!");
+    	}
+    }
+    class文件 反编译效果：public class A.Hello {
+    	public A.Hello();
+    	public static void main(java.lang.String[]);
+    }
+   ```
+
  
- 
- 
+
+
 8. 注意 Hello类直接变成了 A.Hello,也就是类名称自动包含了路径信息。
 
 9. java执行class文件时，遇到 如new、getstatic 等等需要创建类实例的相关指令时，就会加载相关的class文件（也称动态加载），那么jvm会去哪里找class文件呢？跟javac类似还是通过“classpath + 相对路径”去找。
