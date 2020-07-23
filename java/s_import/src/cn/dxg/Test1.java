@@ -1,4 +1,5 @@
-public class Hello {
+package cn.dxg;
+public class Test1 {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
