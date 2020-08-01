@@ -37,6 +37,7 @@ $$
 
 ## 开始构造语言的文法
 
+```
 不知道怎么给非终结符取名字（英文太渣 ：），参考一下antlr的写法，根据需求，直接拿过来用或者稍微修改一下下。
 
 参考：https://github.com/antlr/grammars-v4/blob/master/c/C.g4
@@ -81,19 +82,50 @@ Constant :  NonzeroDigit  Digit * ;
 1，( 1 )，1 + 2，1 + 2  *  3  , 1 * ( 2 + 3 ) , 1* ( 3 - 1 * (3 + 2) - 4)  这些都是算术表达式要识别的语言。
 
 第一种写法：
-exp: exp (( '+' | '-' | '*' |  '/'  ) exp )* | '(' exp ')' | constant
+exp: exp ( '+' | '-' | '*' |  '/'  ) exp  | '(' exp ')' | constant
 比如要识别 1 * ( 2 + 3 )
-exp:exp * exp
+exp
+exp * exp
+exp * (exp)
+exp * (exp + exp )
+exp * ( 2 + 3 )
 
-​		exp * (exp)
+第二种写法：
+exp2 : exp1 ((  '+' | '-' | '*' |  '/'  ) exp1)*   
+exp1 : constant | '(' exp2 ')'
 
-​		exp * (exp + exp )
+第三种写法：
+exp3 : exp2 (( '+' | '-' ) exp2)*
+exp2 : exp1 (( '*' | '/' ) exp1)*   
+exp1 : constant | '(' exp3 ')'
 
-​		exp * ( 2 + 3 )
+第二种写法相比于第一种写法，计算机可以方便构造递归下降算法。第三种相比于第二种写法在构造抽象语法树的时候可以方便出来 * / + -的优先级问题，因为构造过程 exp2先于exp1执行，比如 1 + 2 * 3 。  
+
+```
+ 
 
 
 
+graph TB
 
+A((A))
+B((B))
+C((C))
+D((D))
+E((E))
+F((F))
+G((G))
+H((H))
+I((I))
+J((J)) 
+K((K))
+A-->B
+A-->C
+A-->D
+E-->F
+G-->H
+G-->I
+I-->J
 
 
 
